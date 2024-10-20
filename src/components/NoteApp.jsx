@@ -34,10 +34,17 @@ class NoteApp extends React.Component {
     }
 
     addNoteHandler(note) {
-        this.setState((prevState) => ({
-            notes: [...prevState.notes, note],
-        }));
+        this.setState((prevState) => {
+            const newNote = {
+                ...note,
+                id: Date.now(),
+            };
+            return {
+                notes: [...prevState.notes, newNote],
+            };
+        });
     }
+    
 
     onSearchHandler(searchTerm) {
         this.setState({ searchTerm });
@@ -47,8 +54,8 @@ class NoteApp extends React.Component {
         const { notes, searchTerm } = this.state;
 
         const filteredNotes = notes.filter(note =>
-            (note.title && note.title.toLowerCase().includes(searchTerm.toLowerCase())) ||
-            (note.body && note.body.toLowerCase().includes(searchTerm.toLowerCase()))
+            note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            note.body.toLowerCase().includes(searchTerm.toLowerCase())
         );
 
         const activeNotes = filteredNotes.filter(note => !note.archived);
