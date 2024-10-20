@@ -1,40 +1,28 @@
 import React from "react";
 
 class NoteInput extends React.Component {
-    constructor(props) {
-        super(props);
+    state = {
+        title: '',
+        body: '',
+        maxTitleLength: 50,
+    };
 
-        this.state = {
-            title: '',
-            body: '',
-            maxTitleLength: 50,
-        };
-
-        this.onTitleChangeEventHandler = this.onTitleChangeEventHandler.bind(this);
-        this.onBodyChangeEventHandler = this.onBodyChangeEventHandler.bind(this);
-        this.onSubmitEventHandler = this.onSubmitEventHandler.bind(this);
-    }
-
-    onTitleChangeEventHandler(e) {
+    onTitleChangeEventHandler = (e) => {
         const { maxTitleLength } = this.state;
         if (e.target.value.length <= maxTitleLength) {
-            this.setState(() => {
-                return {
-                    title: e.target.value,
-                };
+            this.setState({
+                title: e.target.value,
             });
         }
-    }
+    };
 
-    onBodyChangeEventHandler(e) {
-        this.setState(() => {
-            return {
-                body: e.target.value,
-            };
+    onBodyChangeEventHandler = (e) => {
+        this.setState({
+            body: e.target.value,
         });
-    }
+    };
 
-    onSubmitEventHandler(e) {
+    onSubmitEventHandler = (e) => {
         e.preventDefault();
         const { title, body } = this.state;
 
@@ -46,14 +34,12 @@ class NoteInput extends React.Component {
                 archived: false,
             });
 
-            this.setState(() => {
-                return {
-                    title: '',
-                    body: '',
-                };
+            this.setState({
+                title: '',
+                body: '',
             });
         }
-    }
+    };
 
     render() {
         const { title, body, maxTitleLength } = this.state;
@@ -74,8 +60,7 @@ class NoteInput extends React.Component {
                     />
                     <textarea 
                         className="note-input__body"
-                        type="text"
-                        placeholder="Tuliskan catatanmnu di sini ..."
+                        placeholder="Tuliskan catatan di sini ..."
                         value={body}
                         onChange={this.onBodyChangeEventHandler}
                         required
